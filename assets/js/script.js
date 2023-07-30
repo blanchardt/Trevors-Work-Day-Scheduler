@@ -10,14 +10,31 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
-  //
+  //create variables for the div that the times will be placed in and provide it with an on click event.
+  var timeBlockList = $(".container-fluid");
+
+  //create the funciton that the on click event will call.
+  function save (event) {
+    //store the element textarea element connected to this button by getting the 2nd child of the parent element.
+    var selectedItemParent = $(event.target).parent('div');
+    var appropriateTextEl = selectedItemParent.children().eq(1);
+    console.log((selectedItemParent.attr("id")).substring(1));
+    console.log(appropriateTextEl.val());
+    //Went to https://stackoverflow.com/questions/4564414/delete-first-character-of-string-if-it-is-0 to figure out how to 
+    //remove the first character of a string.  That way I could remove the # from the id.
+    localStorage.setItem((selectedItemParent.attr("id")).substring(1), appropriateTextEl.val());
+  } 
+
+  //on click event.
+  timeBlockList.on('click', '.saveBtn', save);
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  //create variables for the div that the times will be placed in and for the current hour.
-  var timeBlockList = $(".container-fluid");
+
+  //create variables for the current hour.
   var currentMilitaryHour = today.format("H");
 
   //Create a for loop for each hour slot.  (the ids are going to be in military time while displayed in standard time)
@@ -64,6 +81,8 @@ $(function () {
     var textEl = $("<textarea>");
     textEl.addClass("col-8 col-md-10 description");
     textEl.attr("rows", "3");
+    //temporary starter text for testing.
+    textEl.text("what happens now");
     //call the function below (currently not made, and delete this when finished) to add appropriate text to the text element.
     
     //create the button element.
