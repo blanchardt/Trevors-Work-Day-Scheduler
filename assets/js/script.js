@@ -18,11 +18,9 @@ $(function () {
     //store the element textarea element connected to this button by getting the 2nd child of the parent element.
     var selectedItemParent = $(event.target).parent('div');
     var appropriateTextEl = selectedItemParent.children().eq(1);
-    console.log((selectedItemParent.attr("id")).substring(1));
+    console.log(selectedItemParent.attr("id"));
     console.log(appropriateTextEl.val());
-    //Went to https://stackoverflow.com/questions/4564414/delete-first-character-of-string-if-it-is-0 to figure out how to 
-    //remove the first character of a string.  That way I could remove the # from the id.
-    localStorage.setItem((selectedItemParent.attr("id")).substring(1), appropriateTextEl.val());
+    localStorage.setItem(selectedItemParent.attr("id"), appropriateTextEl.val());
   } 
 
   //on click event.
@@ -54,7 +52,7 @@ $(function () {
 
     //create the outer div.
     var timeBlock = $("<div>");
-    var id = "#hour-" + i;
+    var id = "hour-" + i;
     timeBlock.attr("id", id);
     timeBlock.addClass("row time-block " + history);
     
@@ -81,9 +79,8 @@ $(function () {
     var textEl = $("<textarea>");
     textEl.addClass("col-8 col-md-10 description");
     textEl.attr("rows", "3");
-    //temporary starter text for testing.
-    textEl.text("what happens now");
-    //call the function below (currently not made, and delete this when finished) to add appropriate text to the text element.
+    //call the function below to add appropriate text to the text element.
+    getLocalStorage(id, textEl);
     
     //create the button element.
     var buttonEl = $("<button>");
@@ -110,6 +107,15 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+  function getLocalStorage (id, textEl) {
+    var text = localStorage.getItem(id);
+    if (!text) {
+      return;
+    }
+
+    textEl.text(text);
+  }
+  
   // TODO: Add code to display the current date in the header of the page.
   //define and populate variables for the date that will be displayed below the header.
   var numberDay = today.format("D");
