@@ -4,12 +4,7 @@
 $(function () {
   //Create a variable to keep track of the day.
   var today = dayjs();
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
+
   //create variables for the div that the times will be placed in and provide it with an on click event.
   var timeBlockList = $(".container-fluid");
 
@@ -23,14 +18,8 @@ $(function () {
     localStorage.setItem(selectedItemParent.attr("id"), appropriateTextEl.val());
   } 
 
-  //on click event.
+  //on click event to save the text area field to local storage.
   timeBlockList.on('click', '.saveBtn', save);
-
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
 
   //create variables for the current hour.
   var currentMilitaryHour = today.format("H");
@@ -102,11 +91,7 @@ $(function () {
     timeBlockList.append(timeBlock);
   }
   
-
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
+  //function to get the data from the local storage and store it in the appropriate text area.
   function getLocalStorage (id, textEl) {
     var text = localStorage.getItem(id);
     if (!text) {
@@ -116,7 +101,6 @@ $(function () {
     textEl.text(text);
   }
   
-  // TODO: Add code to display the current date in the header of the page.
   //define and populate variables for the date that will be displayed below the header.
   var numberDay = today.format("D");
   var dayTense;
