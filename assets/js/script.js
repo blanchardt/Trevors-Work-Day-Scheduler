@@ -8,7 +8,7 @@ $(function () {
   //create variables for the div that the times will be placed in and provide it with an on click event.
   var timeBlockList = $(".container-fluid");
 
-  //create the funciton that the on click event will call.
+  //create the funciton that the on click event will call for the button and i elements.
   function save (event) {
     //store the element textarea element connected to this button by getting the 2nd child of the parent element.
     var selectedItemParent = $(event.target).parent('div');
@@ -16,8 +16,17 @@ $(function () {
     localStorage.setItem(selectedItemParent.attr("id"), appropriateTextEl.val());
   } 
 
+  function saveOnIEl (event) {
+    event.stopPropagation();
+    //store the element textarea element connected to this button by getting the 2nd child of the parent element.
+    var selectedItemParent = $(event.target).parent('button').parent('div');
+    var appropriateTextEl = selectedItemParent.children().eq(1);
+    localStorage.setItem(selectedItemParent.attr("id"), appropriateTextEl.val());
+  } 
+
   //on click event to save the text area field to local storage.
   timeBlockList.on('click', '.saveBtn', save);
+  timeBlockList.on('click', '.fa-save', saveOnIEl)
 
   //create variables for the current hour.
   var currentMilitaryHour = today.format("H");
