@@ -13,8 +13,6 @@ $(function () {
     //store the element textarea element connected to this button by getting the 2nd child of the parent element.
     var selectedItemParent = $(event.target).parent('div');
     var appropriateTextEl = selectedItemParent.children().eq(1);
-    console.log(selectedItemParent.attr("id"));
-    console.log(appropriateTextEl.val());
     localStorage.setItem(selectedItemParent.attr("id"), appropriateTextEl.val());
   } 
 
